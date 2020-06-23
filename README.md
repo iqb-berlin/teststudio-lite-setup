@@ -1,14 +1,16 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+
 # Teststudio-Lite
 
-Docker-Setup for the teststudio-lite (formally known as itemdb).
+Docker-Setup for the Teststudio-Lite application (formally known as itemdb).
 
 **This compose-file is for development/showcase purposes. Not for deployment.**
 
 # run
 
 ```
-git clone --recurse-submodules https://github.com/iqb-berlin/iqb-tba-docker-setup.git
-cd iqb-tba-docker-setup
+git clone --recurse-submodules https://github.com/iqb-berlin/teststudio-lite-setup.git
+cd teststudio-lite-setup
 docker-compose up
 ```
 
