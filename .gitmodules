@@ -1,0 +1,3 @@
+[submodule "teststudio-lite-backend"]
+	path = teststudio-lite-backend
+	url = https://github.com/iqb-berlin/teststudio-lite-backend
