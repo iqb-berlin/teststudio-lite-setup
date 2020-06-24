@@ -2,7 +2,7 @@
 
 # Teststudio-Lite
 
-Docker-Setup for the Teststudio-Lite application (formally known as itemdb).
+Docker-Setup for the Teststudio-Lite (formally known as itemdb).
 
 **This compose-file is for development/showcase purposes. Not for deployment.**
 
