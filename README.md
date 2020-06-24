@@ -1,3 +1,6 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+
+
 # Teststudio-Lite
 
 Docker-Setup for the teststudio-lite (formally known as itemdb).
