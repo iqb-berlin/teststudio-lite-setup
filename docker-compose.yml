@@ -6,12 +6,9 @@ x-env-postgres: &env-postgres
   POSTGRES_PASSWORD: iqb_tba_db_password_1
 
 
-#x-env-initdata: &env-initdata
-#  SUPERUSER_NAME: super
-#  SUPERUSER_PASSWORD: user123
-#  WORKSPACE_NAME: example_workspace
-#  TEST_LOGIN_NAME: test
-#  TEST_LOGIN_PASSWORD: user123
+x-env-initdata: &env-initdata
+  SUPERUSER_NAME: super
+  SUPERUSER_PASSWORD: user123
 
 services:
   teststudio-lite-db:
@@ -31,7 +28,7 @@ services:
     container_name: teststudio-lite-backend
     environment:
       <<: *env-postgres
-#      <<: *env-initdata
+      <<: *env-initdata
       POSTGRES_HOST: teststudio-lite-db
       POSTGRES_PORT: 5432
     depends_on:

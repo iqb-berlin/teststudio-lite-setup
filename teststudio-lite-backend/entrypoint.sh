@@ -19,15 +19,6 @@ if [[ ! -f "$DBConnectionDataFile" ]]; then
 fi
 
 
-## init data
-#php /var/www/html/scripts/initialize.php \
-#  --user_name=$SUPERUSER_NAME \
-#  --user_password=$SUPERUSER_PASSWORD \
-#  --workspace=$WORKSPACE_NAME \
-#  --test_login_name=$TEST_LOGIN_NAME \
-#  --test_login_password=$TEST_LOGIN_PASSWORD \
-#  --test_person_codes="xxx yyy"
-
 # data-dir
 DataDir=/var/www/html/vo_data
 if [[ ! -d "$DataDir" ]]; then
@@ -36,6 +27,12 @@ if [[ ! -d "$DataDir" ]]; then
 fi
 # file-rights
 chown -R www-data:www-data $DataDir
+
+
+# add super user
+cd /var/www/html/create || exit
+php init.cli.php --user_name=$SUPERUSER_NAME --user_password=$SUPERUSER_PASSWORD
+
 
 # keep container open
 apache2-foreground
