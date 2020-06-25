@@ -1,0 +1,63 @@
+version: '3.7'
+
+x-env-postgres: &env-postgres
+  POSTGRES_DB: teststudio_lite_db
+  POSTGRES_USER: teststudio_lite_db_user
+  POSTGRES_PASSWORD: iqb_tba_db_password_1
+
+#x-env-initdata: &env-initdata
+#  SUPERUSER_NAME: super
+#  SUPERUSER_PASSWORD: user123
+#  WORKSPACE_NAME: example_workspace
+#  TEST_LOGIN_NAME: test
+#  TEST_LOGIN_PASSWORD: user123
+
+services:
+
+  teststudio-lite-db:
+    build:
+      context: teststudio-lite-db-postgres
+    container_name: teststudio-lite-db-postgres
+    environment:
+      <<: *env-postgres
+    volumes:
+      - dbdata:/var/lib/mysql
+    ports:
+      - "9097:3306"
+
+  teststudio-lite-backend:
+    build:
+      context: teststudio-lite-backend
+    container_name: teststudio-lite-backend
+    environment:
+      <<: *env-postgres
+#      <<: *env-initdata
+      POSTGRES_HOST: teststudio-lite-db-postgres
+      POSTGRES_PORT: 9097
+    depends_on:
+      - teststudio-lite-db
+    volumes:
+      - ./teststudio-lite-backend/src/:/var/www/html/
+      - ./teststudio-lite-backend/config/local.php.ini:/usr/local/etc/php/conf.d/local.ini
+      - ./teststudio-lite-backend/config/vhost.conf:/etc/apache2/sites-available/vhost.conf
+#      - ./teststudio-lite-backend/data:/var/www/html/vo_data
+    ports:
+      - "9095:80"
+    stdin_open: true
+    tty: true
+
+#  testcenter-frontend:
+#    build:
+#      context: testcenter-frontend
+#    container_name: testcenter-frontend
+#    volumes:
+#      - ./testcenter-frontend/src:/app
+#      - node_modules_testcenter:/app/node_modules
+#    ports:
+#      - '4201:4200'
+
+volumes:
+  dbdata:
+    driver: local
+#  node_modules_testcenter:
+#    driver: local
