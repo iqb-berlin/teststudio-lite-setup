@@ -2,15 +2,8 @@ version: '3.7'
 
 x-env-postgres: &env-postgres
   POSTGRES_DB: teststudio_lite_db
-  # dbname=    teststudio_lite_db;
   POSTGRES_USER: teststudio_lite_db_user
-  # user=        teststudio_lite_db_user;
   POSTGRES_PASSWORD: iqb_tba_db_password_1
-# password=          iqb_tba_db_password_1
-
-# port=9097;
-
-
 
 
 #x-env-initdata: &env-initdata
@@ -21,7 +14,6 @@ x-env-postgres: &env-postgres
 #  TEST_LOGIN_PASSWORD: user123
 
 services:
-# teststudio-lite-db;
   teststudio-lite-db:
     build:
       context: teststudio-lite-db-postgres
