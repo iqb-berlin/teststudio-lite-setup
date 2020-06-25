@@ -19,10 +19,10 @@ ENV POSTGRES_PORT=9097
 
 ## dependencies
 RUN apt-get update && \
-    apt-get install -y zlib1g-dev libzip-dev unzip
+    apt-get install -y libpq-dev zlib1g-dev libzip-dev unzip
 
 # install php extensions
-RUN docker-php-ext-install -j$(nproc) pdo_mysql zip
+RUN docker-php-ext-install -j$(nproc) pdo_pgsql zip
 
 # set up apache
 RUN a2enmod rewrite
