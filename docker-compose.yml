@@ -46,9 +46,6 @@ services:
       - teststudio-lite-db
     volumes:
       - ./teststudio-lite-backend/src/:/var/www/html/
-      - ./teststudio-lite-backend/config/local.php.ini:/usr/local/etc/php/conf.d/local.ini
-      - ./teststudio-lite-backend/config/vhost.conf:/etc/apache2/sites-available/vhost.conf
-      - ./teststudio-lite-backend/config/pg_hba.conf:/opt/pg_hba.conf
 #      - ./teststudio-lite-backend/data:/var/www/html/vo_data
     ports:
       - "9095:80"
