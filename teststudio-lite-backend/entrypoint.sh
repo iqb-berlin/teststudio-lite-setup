@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo "TESTSTESTST";
+
 # db connection
 DBConnectionDataFile=/var/www/html/vo_code/DBConnectionData.json
 
@@ -19,14 +21,9 @@ if [[ ! -f "$DBConnectionDataFile" ]]; then
 fi
 
 
-# data-dir
-DataDir=/var/www/html/vo_data
-if [[ ! -d "$DataDir" ]]; then
-  echo "create data-dir"
-  mkdir $DataDir
-fi
 # file-rights
-chown -R www-data:www-data $DataDir
+chown -R www-data:www-data itemplayers
+chown -R www-data:www-data itemauthoringtools
 
 
 # add super user

@@ -39,12 +39,17 @@ COPY config/local.php.ini /usr/local/etc/php/conf.d/local.ini
 # copy source code
 COPY src/ /var/www/html
 
+# data directories
+RUN mkdir -p /var/www/html/itemplayers
+RUN mkdir -p /var/www/html/itemauthoringtools
+RUN mkdir -p /var/www/html/vo_tmp
+
 # set file rights
 RUN chown -R www-data:www-data /var/www/html
+#RUN chmod -R 777 /var/www/html/itemplayers
+#RUN chmod -R 777 /var/www/html/itemauthoringtools
+#RUN chmod -R 777 /var/www/html/vo_tmp
 
-# install composer dependencies
-#RUN sh scripts/install_composer.sh
-#RUN php composer.phar install
 
 
 EXPOSE 80

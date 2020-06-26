@@ -2,3 +2,6 @@
 *.iml
 
 clean-docker.sh
+
+data/itemauthoringtools
+data/itemplayers
