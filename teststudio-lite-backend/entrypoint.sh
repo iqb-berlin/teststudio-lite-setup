@@ -41,9 +41,9 @@ if [[ ! "$(ls $editorsDir)" ]]; then
     >> "$editorsDir/metadata.xml";
 fi
 
-# add super user
+# add super user and workspace
 cd /var/www/html/create || exit
-php init.cli.php --user_name=$SUPERUSER_NAME --user_password=$SUPERUSER_PASSWORD
+php init.cli.php --user_name=$SUPERUSER_NAME --user_password=$SUPERUSER_PASSWORD --workspace_name=$WORKSPACE_NAME
 
 
 # keep container open
