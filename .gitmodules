@@ -4,3 +4,6 @@
 [submodule "teststudio-lite-frontend/src"]
 	path = teststudio-lite-frontend/src
 	url = https://github.com/iqb-berlin/teststudio-lite-frontend
+[submodule "plugins/verona-player-dan"]
+	path = plugins/verona-player-dan
+	url = https://github.com/iqb-berlin/verona-player-dan
