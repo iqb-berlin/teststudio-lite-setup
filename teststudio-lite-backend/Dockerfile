@@ -6,11 +6,9 @@ LABEL description="The PHP backend of the teststudio-lite. This container ist fo
 LABEL license="MIT"
 
 # environment vars
-#ENV SUPERUSER_NAME=super
-#ENV SUPERUSER_PASSWORD=user456
-#ENV TEST_LOGIN_NAME=testlogin
-#ENV TEST_LOGIN_PASSWORD=user789
-#ENV WORKSPACE_NAME=brand_new_workspace
+ENV SUPERUSER_NAME=super
+ENV SUPERUSER_PASSWORD=user456
+ENV WORKSPACE_NAME=brand_new_workspace
 ENV POSTGRES_DB=teststudio_lite_db
 ENV POSTGRES_USER=teststudio_lite_db_user
 ENV POSTGRES_PASSWORD=iqb_tba_db_password_1
