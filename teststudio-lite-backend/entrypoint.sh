@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-echo "TESTSTESTST";
-
 # db connection
 DBConnectionDataFile=/var/www/html/vo_code/DBConnectionData.json
 
@@ -21,10 +19,27 @@ if [[ ! -f "$DBConnectionDataFile" ]]; then
 fi
 
 
-# file-rights
-chown -R www-data:www-data itemplayers
-chown -R www-data:www-data itemauthoringtools
+#deploy plugins
+playersDir=/var/www/html/itemplayers
+chown -R www-data:www-data "$playersDir"
+if [[ ! "$(ls $playersDir)" ]]; then
+  echo "importing dan-player/player 2.1.0"
+  cp /teststudio-lite-plugins/verona-player-dan/releases/2.1.0/unitPlayer/IQBVisualUnitPlayerV2.1.0.html \
+    "$playersDir/IQBVisualUnitPlayerV2.html" # must be renamed, because teststudio-lite does not support sub-versions
+fi
 
+editorsDir=/var/www/html/itemauthoringtools
+chown -R www-data:www-data "$editorsDir"
+if [[ ! "$(ls $editorsDir)" ]]; then
+  echo "importing dan-player/editor 2.1.0"
+  mkdir /var/www/html/itemauthoringtools/dan-player-2.1.0
+  cp -R /teststudio-lite-plugins/verona-player-dan/releases/2.1.0/unitAuthoring/* \
+    "$editorsDir/dan-player-2.1.0/"
+  echo "<?xml version=\"1.0\"?>" \
+    >> "$editorsDir/metadata.xml";
+  echo "<itemauthoringtools><tool id=\"dan-player-2.1.0\">dan-player-2.1.0</tool></itemauthoringtools>" \
+    >> "$editorsDir/metadata.xml";
+fi
 
 # add super user
 cd /var/www/html/create || exit

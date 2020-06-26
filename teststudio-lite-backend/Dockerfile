@@ -46,10 +46,9 @@ RUN mkdir -p /var/www/html/vo_tmp
 
 # set file rights
 RUN chown -R www-data:www-data /var/www/html
-#RUN chmod -R 777 /var/www/html/itemplayers
-#RUN chmod -R 777 /var/www/html/itemauthoringtools
-#RUN chmod -R 777 /var/www/html/vo_tmp
 
+# include plugins folder
+COPY plugins /teststudio-lite-plugins
 
 
 EXPOSE 80
