@@ -13,7 +13,7 @@ ENV POSTGRES_PASSWORD=iqb_tba_db_password_1
 COPY config/pg_hba.conf /opt/pg_hba.conf
 RUN chmod 777 /opt/pg_hba.conf
 
-# import database and createsuperuser script
+# import database
 COPY initdb/init.sql /docker-entrypoint-initdb.d/1-db.postgres.sql
 COPY initdb/write_pg_hba.conf.sh /docker-entrypoint-initdb.d/2-write_pg_hba.conf.sh
 CMD ["postgres", "-c", "hba_file=/opt/pg_hba.conf"]
