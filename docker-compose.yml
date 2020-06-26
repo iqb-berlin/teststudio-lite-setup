@@ -5,10 +5,11 @@ x-env-postgres: &env-postgres
   POSTGRES_USER: teststudio_lite_db_user
   POSTGRES_PASSWORD: iqb_tba_db_password_1
 
-
 x-env-initdata: &env-initdata
   SUPERUSER_NAME: super
   SUPERUSER_PASSWORD: user123
+  WORKSPACE_NAME: sample_workspace
+
 
 services:
   teststudio-lite-db:
