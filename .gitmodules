@@ -7,3 +7,6 @@
 [submodule "verona-player-dan"]
 	path = teststudio-lite-backend/plugins/verona-player-dan
 	url = https://github.com/iqb-berlin/verona-player-dan
+[submodule "teststudio-lite-backend/plugins/verona-player-abi"]
+	path = teststudio-lite-backend/plugins/verona-player-abi
+	url = https://github.com/iqb-berlin/verona-player-abi
