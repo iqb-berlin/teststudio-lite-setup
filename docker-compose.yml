@@ -15,6 +15,8 @@ services:
   teststudio-lite-db:
     build:
       context: teststudio-lite-db-postgres
+      args:
+        <<: *env-postgres
     container_name: teststudio-lite-db-postgres
     environment:
       <<: *env-postgres
@@ -38,7 +40,6 @@ services:
       - ./teststudio-lite-backend/src/:/var/www/html/
       - ./data/itemplayers:/var/www/html/itemplayers
       - ./data/itemauthoringtools:/var/www/html/itemauthoringtools
-#      - ./teststudio-lite-backend/data:/var/www/html/vo_data
     ports:
       - "9095:80"
     stdin_open: true
