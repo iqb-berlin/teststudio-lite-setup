@@ -1,9 +1,9 @@
-[submodule "teststudio-lite-backend"]
+[submodule "teststudio-lite-backend/src"]
 	path = teststudio-lite-backend/src
 	url = https://github.com/iqb-berlin/teststudio-lite-backend
 [submodule "teststudio-lite-frontend/src"]
 	path = teststudio-lite-frontend/src
 	url = https://github.com/iqb-berlin/teststudio-lite-frontend
-[submodule "plugins/verona-player-dan"]
+[submodule "verona-player-dan"]
 	path = teststudio-lite-backend/plugins/verona-player-dan
 	url = https://github.com/iqb-berlin/verona-player-dan
