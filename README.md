@@ -27,3 +27,4 @@ timeout: `export COMPOSE_HTTP_TIMEOUT=300`.
 - 4210: teststudio-lite backend
 - 9097: postgres database
 --
+.
