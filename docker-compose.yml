@@ -17,6 +17,14 @@ x-env-logging-conf: &env-logging-conf
   max-file: "10"
 
 services:
+  traefik:
+    image: traefik:v2.2
+    container_name: traefik
+    ports:
+      - "80:80"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
   teststudio-lite-db:
     image: postgres:9.6
     container_name: teststudio-lite-db
@@ -41,13 +49,20 @@ services:
     volumes:
       - itemplayers:/var/www/html/itemplayers
       - itemauthoringtools:/var/www/html/itemauthoringtools
-
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.teststudio-lite-backend.rule=Host(`${HOSTNAME}`) && PathPrefix(`/api`)"
+      - "traefik.http.middlewares.teststudio-lite-backend-stripprefix.stripprefix.prefixes=/api"
+      - "traefik.http.routers.teststudio-lite-backend.middlewares=teststudio-lite-backend-stripprefix"
 
   teststudio-lite-frontend:
     container_name: teststudio-lite-frontend
     logging:
       options:
         <<: *env-logging-conf
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.teststudio-lite-frontend.rule=Host(`${HOSTNAME}`)"
 
 volumes:
   dbdata:

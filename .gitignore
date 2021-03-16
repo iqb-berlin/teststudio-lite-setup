@@ -1,4 +1,4 @@
 .idea
 *.iml
 
-clean-docker.sh
+.env
