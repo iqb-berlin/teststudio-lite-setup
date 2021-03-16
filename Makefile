@@ -17,3 +17,6 @@ run-prod-nontls-detached:
 
 update-submodules:
 	git submodule update --remote --merge
+
+new-version:
+	scripts/new_version.py
