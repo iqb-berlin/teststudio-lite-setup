@@ -1,3 +1,5 @@
+# Base compose file defining services and their settings
+# For concrete images check the evironment specific override files.
 version: '3.7'
 
 x-env-postgres: &env-postgres
@@ -10,24 +12,21 @@ x-env-initdata: &env-initdata
   SUPERUSER_PASSWORD: user123
   WORKSPACE_NAME: sample_workspace
 
+x-env-logging-conf: &env-logging-conf
+  max-size: "200m"
+  max-file: "10"
 
 services:
   teststudio-lite-db:
-    build:
-      context: teststudio-lite-db-postgres
-      args:
-        <<: *env-postgres
-    container_name: teststudio-lite-db-postgres
+    image: postgres:9.6
+    container_name: teststudio-lite-db
     environment:
       <<: *env-postgres
     volumes:
       - dbdata:/var/lib/postgresql/data
-    ports:
-      - "9097:5432"
+      - ./config/sql/:/docker-entrypoint-initdb.d/
 
   teststudio-lite-backend:
-    build:
-      context: teststudio-lite-backend
     container_name: teststudio-lite-backend
     environment:
       <<: *env-postgres
@@ -36,27 +35,21 @@ services:
       POSTGRES_PORT: 5432
     depends_on:
       - teststudio-lite-db
+    logging:
+      options:
+        <<: *env-logging-conf
     volumes:
-      - ./teststudio-lite-backend/src/:/var/www/html/
-      - ./data/itemplayers:/var/www/html/itemplayers
-      - ./data/itemauthoringtools:/var/www/html/itemauthoringtools
-    ports:
-      - "9095:80"
-    stdin_open: true
-    tty: true
+      - itemplayers:/var/www/html/itemplayers
+      - itemauthoringtools:/var/www/html/itemauthoringtools
+
 
   teststudio-lite-frontend:
-    build:
-      context: teststudio-lite-frontend
     container_name: teststudio-lite-frontend
-    volumes:
-      - ./teststudio-lite-frontend/src:/app
-      - node_modules_teststudio-lite:/app/node_modules
-    ports:
-      - '4210:4200'
+    logging:
+      options:
+        <<: *env-logging-conf
 
 volumes:
   dbdata:
-    driver: local
-  node_modules_teststudio-lite:
-    driver: local
+  itemplayers:
+  itemauthoringtools:
