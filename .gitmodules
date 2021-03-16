@@ -1,6 +1,0 @@
-[submodule "teststudio-lite-backend/src"]
-	path = teststudio-lite-backend
-	url = https://github.com/iqb-berlin/teststudio-lite-backend
-[submodule "teststudio-lite-frontend/src"]
-	path = teststudio-lite-frontend
-	url = https://github.com/iqb-berlin/teststudio-lite-frontend
