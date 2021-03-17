@@ -1,0 +1,4 @@
+tls:
+  certificates:
+    - certFile: /certs/ssl_certificate.cer
+      keyFile: /certs/private_key.key

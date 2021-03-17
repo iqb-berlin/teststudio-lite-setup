@@ -1,0 +1,26 @@
+#  Compose file for production environment. Images are NOT locally built but
+#  downloaded from Docker-Hub. For certificate setup refer to the README.
+version: '3.7'
+
+services:
+
+  traefik:
+    command:
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
+      - "--entrypoints.websecure.address=:443"
+      - "--providers.file.directory=/"
+    ports:
+      - "443:443"
+    volumes:
+      - ./config/certs/:/certs/
+      - ./config/cert_config.yml:/cert_config.yml
+
+  testcenter-backend:
+    labels:
+      - "traefik.http.routers.testcenter-backend.tls=true"
+
+  testcenter-frontend:
+    labels:
+      - "traefik.http.routers.testcenter-frontend.tls=true"
