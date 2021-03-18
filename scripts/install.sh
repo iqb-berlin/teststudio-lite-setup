@@ -57,31 +57,30 @@ sed -i "s/teststudio_lite_db_user/$POSTGRES_USER/" .env
 read  -p 'Database user password: ' -e -i $POSTGRES_PASSWORD POSTGRES_PASSWORD
 sed -i "s/iqb_tba_db_password_1/$POSTGRES_PASSWORD/" .env
 
-# read  -p 'Use TLS? (y/N): ' -e TLS
-# if [ $TLS = 'y' ]
-# then
-#   echo "The certificates need to be placed in config/certs and their name configured in config/cert_config.yml."
-#   sed -i 's/http:/https:/' .env
-#   sed -i 's/ws:/wss:/' .env
-# fi
+read  -p 'Use TLS? (y/N): ' -e TLS
+if [ $TLS = 'y' ]
+then
+  echo "The certificates need to be placed in config/certs and their name configured in config/cert_config.yml."
+  sed -i 's/http:/https:/' .env
+  sed -i 's/ws:/wss:/' .env
+fi
 
-### Populate Makefile ###
-# if [ $TLS = 'y' ]
-# then
-#   rm docker-compose.prod.nontls.yml
-#   sed -i 's/<run-command>/docker-compose -f docker-compose.yml -f docker-compose.prod.tls.yml up/' Makefile-template
-#   sed -i 's/<run-datached-command>/docker-compose -f docker-compose.yml -f docker-compose.prod.tls.yml up -d/' Makefile-template
-#   sed -i 's/<stop-command>/docker-compose -f docker-compose.yml -f docker-compose.prod.tls.yml stop/' Makefile-template
-#   sed -i 's/<down-command>/docker-compose -f docker-compose.yml -f docker-compose.prod.tls.yml down/' Makefile-template
-#   sed -i 's/<pull-command>/docker-compose -f docker-compose.yml -f docker-compose.prod.tls.yml pull/' Makefile-template
-# else
-  # rm docker-compose.prod.tls.yml
+## Populate Makefile ###
+if [ $TLS = 'y' ]
+then
+  sed -i 's/<run-command>/docker-compose -f docker-compose.yml -f docker-compose.prod.yml -f docker-compose.prod.tls.yml up/' Makefile-template
+  sed -i 's/<run-datached-command>/docker-compose -f docker-compose.yml -f docker-compose.prod.yml -f docker-compose.prod.tls.yml up -d/' Makefile-template
+  sed -i 's/<stop-command>/docker-compose -f docker-compose.yml -f docker-compose.prod.yml -f docker-compose.prod.tls.yml stop/' Makefile-template
+  sed -i 's/<down-command>/docker-compose -f docker-compose.yml -f docker-compose.prod.yml -f docker-compose.prod.tls.yml down/' Makefile-template
+  sed -i 's/<pull-command>/docker-compose -f docker-compose.yml -f docker-compose.prod.yml -f docker-compose.prod.tls.yml pull/' Makefile-template
+else
+  rm docker-compose.prod.tls.yml
   sed -i 's/<run-command>/docker-compose -f docker-compose.yml -f docker-compose.prod.yml up/' Makefile-template
   sed -i 's/<run-datached-command>/docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d/' Makefile-template
   sed -i 's/<stop-command>/docker-compose -f docker-compose.yml -f docker-compose.prod.yml stop/' Makefile-template
   sed -i 's/<down-command>/docker-compose -f docker-compose.yml -f docker-compose.prod.yml down/' Makefile-template
   sed -i 's/<pull-command>/docker-compose -f docker-compose.yml -f docker-compose.prod.yml pull/' Makefile-template
-# fi
+fi
 
 mv Makefile-template Makefile
 
