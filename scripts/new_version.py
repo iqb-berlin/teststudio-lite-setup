@@ -32,9 +32,7 @@ BACKEND_VERSION_REGEX = '(?<=version": ")(.*)(?=")'
 FRONTEND_VERSION_FILE_PATH = 'teststudio-lite-frontend/package.json'
 FRONTEND_VERSION_REGEX = BACKEND_VERSION_REGEX
 
-COMPOSE_FILE_PATHS = [
-    'docker-compose.prod.yml',
-    'docker-compose.dev.yml']
+COMPOSE_FILE_PATHS = ['docker-compose.prod.yml']
 
 backend_version = ''
 frontend_version = ''
@@ -52,9 +50,6 @@ def check_prerequisites():
                             text=True, shell=True, check=True, capture_output=True)
     if result.stderr.rstrip() != '':
         sys.exit('ERROR: Not up to date with remote branch!')
-    # port 80 in use?
-    if is_port_in_use(80):
-        sys.exit('ERROR: Port 80 in use!' + result.stderr)
 
 
 def is_port_in_use(port):
@@ -121,7 +116,7 @@ def create_release_package(backend_version, frontend_version):
     subprocess.run('cp docker-compose.yml dist/docker-compose.yml', shell=True, check=True)
     subprocess.run('cp docker-compose.prod.yml dist/docker-compose.prod.yml',
                    shell=True, check=True)
-    # subprocess.run('cp docker-compose.prod.tls.yml dist/docker-compose.prod.tls.yml', shell=True, check=True)
+    subprocess.run('cp docker-compose.prod.tls.yml dist/docker-compose.prod.tls.yml', shell=True, check=True)
     subprocess.run('cp .env-default dist/.env', shell=True, check=True)
 
     filename = f"dist/{frontend_version}@{backend_version}.tar"
