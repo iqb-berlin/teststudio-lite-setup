@@ -27,6 +27,8 @@ import socket
 import os
 import tarfile
 
+DIST_PACKAGE_NAME = 'teststudio-lite'
+
 BACKEND_VERSION_FILE_PATH = 'testcenter-backend/composer.json'
 BACKEND_VERSION_REGEX = '(?<=version": ")(.*)(?=")'
 FRONTEND_VERSION_FILE_PATH = 'teststudio-lite-frontend/package.json'
@@ -119,7 +121,7 @@ def create_release_package(backend_version, frontend_version):
     subprocess.run('cp docker-compose.prod.tls.yml dist/docker-compose.prod.tls.yml', shell=True, check=True)
     subprocess.run('cp .env-default dist/.env', shell=True, check=True)
 
-    filename = f"dist/{frontend_version}@{backend_version}.tar"
+    filename = f"dist/{DIST_PACKAGE_NAME}-{frontend_version}-{backend_version}.tar"
     with tarfile.open(filename, "w") as tar:
         for file in os.listdir('dist'):
             tar.add('dist/' + file, file)
