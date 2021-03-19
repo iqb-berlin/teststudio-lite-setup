@@ -10,15 +10,15 @@ services:
 
   teststudio-lite-backend:
     build:
-      context: teststudio-lite-backend
-      dockerfile: docker/Dockerfile
+      context: ./teststudio-lite-backend
+      dockerfile: ./docker/Dockerfile
     volumes:
       - ./teststudio-lite-backend/:/var/www/html/
 
   teststudio-lite-frontend:
     build:
-      context: teststudio-lite-frontend
-      dockerfile: docker/Dockerfile
+      context: ./teststudio-lite-frontend
+      dockerfile: ./docker/Dockerfile
       target: dev
     volumes:
       - ./teststudio-lite-frontend/:/app
