@@ -13,11 +13,11 @@ stop-prod:
 	docker-compose -f docker-compose.yml -f docker-compose.prod.yml stop
 
 run-prod-tls:
-	docker-compose -f docker-compose.yml -f docker-compose.prod.nontls.yml -f docker-compose.prod.tls.yml up
+	docker-compose -f docker-compose.yml -f docker-compose.prod.yml -f docker-compose.prod.tls.yml up
 run-prod-tls-detached:
-	docker-compose -f docker-compose.yml -f docker-compose.prod.nontls.yml -f docker-compose.prod.tls.yml up -d
+	docker-compose -f docker-compose.yml -f docker-compose.prod.yml -f docker-compose.prod.tls.yml up -d
 stop-prod-tls:
-	docker-compose -f docker-compose.yml -f docker-compose.prod.nontls.yml -f docker-compose.prod.tls.yml stop
+	docker-compose -f docker-compose.yml -f docker-compose.prod.yml -f docker-compose.prod.tls.yml stop
 
 build:
 	docker-compose -f docker-compose.yml -f docker-compose.dev.yml build
