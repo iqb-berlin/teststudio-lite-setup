@@ -1,0 +1,28 @@
+# Compose file for local development and testing. Images are built from
+# local directories which need to be cloned from the repository.
+version: '3.8'
+
+services:
+  traefik:
+    command:
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+
+  teststudio-lite-backend:
+    build:
+      context: ./teststudio-lite-backend
+      dockerfile: ./docker/Dockerfile
+    volumes:
+      - ./teststudio-lite-backend/:/var/www/html/
+
+  teststudio-lite-frontend:
+    build:
+      context: ./teststudio-lite-frontend
+      dockerfile: ./docker/Dockerfile
+      target: dev
+    volumes:
+      - ./teststudio-lite-frontend/:/app
+      - teststudio-lite_frontend_node_modules:/app/node_modules
+
+volumes:
+  teststudio-lite_frontend_node_modules:

@@ -1,62 +1,70 @@
-version: '3.7'
+# Base compose file defining services and their settings
+# For concrete images check the evironment specific override files.
+version: '3.8'
 
 x-env-postgres: &env-postgres
-  POSTGRES_DB: teststudio_lite_db
-  POSTGRES_USER: teststudio_lite_db_user
-  POSTGRES_PASSWORD: iqb_tba_db_password_1
+  POSTGRES_DB: ${POSTGRES_DB}
+  POSTGRES_USER: ${POSTGRES_USER}
+  POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+  SUPERUSER_NAME: ${SUPERUSER_NAME}
+  SUPERUSER_PASSWORD: ${SUPERUSER_PASSWORD}
+  WORKSPACE_NAME: ${WORKSPACE_NAME}
 
-x-env-initdata: &env-initdata
-  SUPERUSER_NAME: super
-  SUPERUSER_PASSWORD: user123
-  WORKSPACE_NAME: sample_workspace
-
+x-env-logging-conf: &env-logging-conf
+  max-size: "200m"
+  max-file: "10"
 
 services:
+  traefik:
+    image: traefik:v2.2
+    container_name: traefik
+    command:
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+    ports:
+      - "80:80"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
   teststudio-lite-db:
-    build:
-      context: teststudio-lite-db-postgres
-      args:
-        <<: *env-postgres
-    container_name: teststudio-lite-db-postgres
+    image: postgres:9.6
+    container_name: teststudio-lite-db
     environment:
       <<: *env-postgres
     volumes:
       - dbdata:/var/lib/postgresql/data
-    ports:
-      - "9097:5432"
+      - ./teststudio-lite-backend/docker/config/sql/:/docker-entrypoint-initdb.d/
 
   teststudio-lite-backend:
-    build:
-      context: teststudio-lite-backend
     container_name: teststudio-lite-backend
     environment:
       <<: *env-postgres
-      <<: *env-initdata
       POSTGRES_HOST: teststudio-lite-db
       POSTGRES_PORT: 5432
     depends_on:
       - teststudio-lite-db
+    logging:
+      options:
+        <<: *env-logging-conf
     volumes:
-      - ./teststudio-lite-backend/src/:/var/www/html/
-      - ./data/itemplayers:/var/www/html/itemplayers
-      - ./data/itemauthoringtools:/var/www/html/itemauthoringtools
-    ports:
-      - "9095:80"
-    stdin_open: true
-    tty: true
+      - itemplayers:/var/www/html/itemplayers
+      - itemauthoringtools:/var/www/html/itemauthoringtools
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.teststudio-lite-backend.rule=Host(`${HOSTNAME}`) && PathPrefix(`/api`)"
+      - "traefik.http.middlewares.teststudio-lite-backend-stripprefix.stripprefix.prefixes=/api"
+      - "traefik.http.routers.teststudio-lite-backend.middlewares=teststudio-lite-backend-stripprefix"
 
   teststudio-lite-frontend:
-    build:
-      context: teststudio-lite-frontend
     container_name: teststudio-lite-frontend
-    volumes:
-      - ./teststudio-lite-frontend/src:/app
-      - node_modules_teststudio-lite:/app/node_modules
-    ports:
-      - '4210:4200'
+    logging:
+      options:
+        <<: *env-logging-conf
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.teststudio-lite-frontend.rule=Host(`${HOSTNAME}`)"
 
 volumes:
   dbdata:
-    driver: local
-  node_modules_teststudio-lite:
-    driver: local
+  itemplayers:
+  itemauthoringtools:
