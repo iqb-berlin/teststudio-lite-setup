@@ -5,15 +5,19 @@ run-detached:
 stop:
 	docker-compose -f docker-compose.yml -f docker-compose.dev.yml stop
 
-run-dev-tls:
-	docker-compose -f docker-compose.yml -f docker-compose.dev.tls.yml up
-run-dev-tls-detached:
-	docker-compose -f docker-compose.yml -f docker-compose.dev.tls.yml up -d
+run-prod:
+	docker-compose -f docker-compose.yml -f docker-compose.prod.yml up
+run-prod-detached:
+	docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+stop-prod:
+	docker-compose -f docker-compose.yml -f docker-compose.prod.yml stop
 
-run-prod-nontls:
-	docker-compose -f docker-compose.yml -f docker-compose.prod.nontls.yml up
-run-prod-nontls-detached:
-	docker-compose -f docker-compose.yml -f docker-compose.prod.nontls.yml up -d
+run-prod-tls:
+	docker-compose -f docker-compose.yml -f docker-compose.prod.nontls.yml -f docker-compose.prod.tls.yml up
+run-prod-tls-detached:
+	docker-compose -f docker-compose.yml -f docker-compose.prod.nontls.yml -f docker-compose.prod.tls.yml up -d
+stop-prod-tls:
+	docker-compose -f docker-compose.yml -f docker-compose.prod.nontls.yml -f docker-compose.prod.tls.yml stop
 
 update-submodules:
 	git submodule update --remote --merge
