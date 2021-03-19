@@ -1,6 +1,6 @@
 # Base compose file defining services and their settings
 # For concrete images check the evironment specific override files.
-version: '3.7'
+version: '3.8'
 
 x-env-postgres: &env-postgres
   POSTGRES_DB: ${POSTGRES_DB}
