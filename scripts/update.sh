@@ -59,6 +59,7 @@ fi
 read -p "Update applied. Do you want to restart the server? This may take a few minutes. [Y/n]:" -e RESTART
 if [[ $RESTART != "n" ]]
   then
+    make stop
     make pull
     make run
 fi
