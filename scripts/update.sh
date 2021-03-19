@@ -12,8 +12,8 @@ TAG=`curl -s https://api.github.com/repos/iqb-berlin/teststudio-lite-setup/relea
 | tr -d , \
 | tr -d ' '`
 
-NEW_BACKEND_VERSION=$(echo $TAG | cut -d '@' -f 1)
-NEW_FRONTEND_VERSION=$(echo $TAG | cut -d '@' -f 2)
+NEW_FRONTEND_VERSION=$(echo $TAG | cut -d '@' -f 1)
+NEW_BACKEND_VERSION=$(echo $TAG | cut -d '@' -f 2)
 
 compare_version_string() {
   test $(echo $1 | cut -d '.' -f 1) -eq $(echo $2 | cut -d '.' -f 1)
