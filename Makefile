@@ -19,6 +19,9 @@ run-prod-tls-detached:
 stop-prod-tls:
 	docker-compose -f docker-compose.yml -f docker-compose.prod.nontls.yml -f docker-compose.prod.tls.yml stop
 
+build:
+	docker-compose -f docker-compose.yml -f docker-compose.dev.yml build
+
 update-submodules:
 	git submodule update --remote --merge
 
