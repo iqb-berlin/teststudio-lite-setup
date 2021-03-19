@@ -6,7 +6,6 @@ This script does (in order):
 - update git submodules
 - extract version strings of components (submodules)
 - update docker-compose files with new version strings
-- run e2e tests
 - git:
     - create commit with updated submodules and compose files
     - create tag with updated versions
@@ -23,14 +22,13 @@ Email: richard.henck@iqb.hu-berlin.de
 import sys
 import subprocess
 import re
-import socket
 import os
 import tarfile
 
 DIST_PACKAGE_NAME = 'teststudio-lite'
 
-BACKEND_VERSION_FILE_PATH = 'testcenter-backend/composer.json'
-BACKEND_VERSION_REGEX = '(?<=version": ")(.*)(?=")'
+BACKEND_VERSION_FILE_PATH = 'teststudio-lite-backend/VERSION'
+BACKEND_VERSION_REGEX = '[^\n\r].*'
 FRONTEND_VERSION_FILE_PATH = 'teststudio-lite-frontend/package.json'
 FRONTEND_VERSION_REGEX = BACKEND_VERSION_REGEX
 
@@ -52,11 +50,6 @@ def check_prerequisites():
                             text=True, shell=True, check=True, capture_output=True)
     if result.stderr.rstrip() != '':
         sys.exit('ERROR: Not up to date with remote branch!')
-
-
-def is_port_in_use(port):
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        return s.connect_ex(('localhost', port)) == 0
 
 
 def update_submodules():
@@ -96,12 +89,9 @@ def git_tag_commit_and_push(backend_version, frontend_version):
     print(f"Creating git tag for version {new_version_string}")
     subprocess.run("git add testcenter-backend", shell=True, check=True)
     subprocess.run("git add testcenter-frontend", shell=True, check=True)
-    subprocess.run("git add testcenter-broadcasting-service", shell=True, check=True)
     for compose_file in COMPOSE_FILE_PATHS:
         subprocess.run(f"git add {compose_file}", shell=True, check=True)
-    subprocess.run(f"git add dist/{frontend_version}@{backend_version}.tar",
-                   shell=True, check=True)
-    subprocess.run("git add dist/install.sh", shell=True, check=True)
+    subprocess.run("git add dist/*", shell=True, check=True)
 
     subprocess.run(f"git commit -m \"Update version to {new_version_string}\"", shell=True, check=True)
     subprocess.run("git push origin master", shell=True, check=True)
@@ -133,13 +123,10 @@ def create_release_package(backend_version, frontend_version):
     subprocess.run('rm dist/.env', shell=True, check=True)
 
 
-# check_prerequisites()
+check_prerequisites()
 update_submodules()
-# backend_version = get_version_from_file(BACKEND_VERSION_FILE_PATH, BACKEND_VERSION_REGEX)
-backend_version = 'unknown'
+backend_version = get_version_from_file(BACKEND_VERSION_FILE_PATH, BACKEND_VERSION_REGEX)
 frontend_version = get_version_from_file(FRONTEND_VERSION_FILE_PATH, FRONTEND_VERSION_REGEX)
-# bs_version = get_version_from_file(BS_VERSION_FILE_PATH, BS_VERSION_REGEX)
-# update_compose_file_versions(backend_version, frontend_version, bs_version)
-# run_tests()
+update_compose_file_versions(backend_version, frontend_version)
 create_release_package(backend_version, frontend_version)
-# git_tag_commit_and_push(backend_version, frontend_version, bs_version)
+git_tag_commit_and_push(backend_version, frontend_version)
