@@ -67,8 +67,8 @@ def get_version_from_file(file_path, regex):
 
 
 def update_compose_file_versions(backend_version, frontend_version):
-    backend_pattern = re.compile('(?<=iqbberlin\\/testcenter-backend:)(.*)')
-    frontend_pattern = re.compile('(?<=iqbberlin\\/testcenter-frontend:)(.*)')
+    backend_pattern = re.compile('(?<=iqbberlin\\/teststudio-lite-backend:)(.*)')
+    frontend_pattern = re.compile('(?<=iqbberlin\\/teststudio-lite-frontend:)(.*)')
     for compose_file in COMPOSE_FILE_PATHS:
         with open(compose_file, 'r') as f:
             file_content = f.read()
@@ -87,8 +87,8 @@ def git_tag_commit_and_push(backend_version, frontend_version):
     """Add updated compose files and submodules hashes and commit them to repo."""
     new_version_string = f"{frontend_version}@{backend_version}"
     print(f"Creating git tag for version {new_version_string}")
-    subprocess.run("git add testcenter-backend", shell=True, check=True)
-    subprocess.run("git add testcenter-frontend", shell=True, check=True)
+    subprocess.run("git add teststudio-lite-backend", shell=True, check=True)
+    subprocess.run("git add teststudio-lite-frontend", shell=True, check=True)
     for compose_file in COMPOSE_FILE_PATHS:
         subprocess.run(f"git add {compose_file}", shell=True, check=True)
     subprocess.run("git add dist/*", shell=True, check=True)

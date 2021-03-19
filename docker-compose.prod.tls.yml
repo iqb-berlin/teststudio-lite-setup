@@ -17,10 +17,10 @@ services:
       - ./config/certs/:/certs/
       - ./config/cert_config.yml:/cert_config.yml
 
-  testcenter-backend:
+  teststudio-lite-backend:
     labels:
-      - "traefik.http.routers.testcenter-backend.tls=true"
+      - "traefik.http.routers.teststudio-lite-backend.tls=true"
 
-  testcenter-frontend:
+  teststudio-lite-frontend:
     labels:
-      - "traefik.http.routers.testcenter-frontend.tls=true"
+      - "traefik.http.routers.teststudio-lite-frontend.tls=true"

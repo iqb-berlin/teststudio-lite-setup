@@ -28,7 +28,7 @@ line.
 Because git submodules are used you need to clone them as well as the main
 repository. You can use the following command.
 
-`git clone --recurse-submodules https://github.com/iqb-berlin/testcenter-setup`
+`git clone --recurse-submodules https://github.com/iqb-berlin/teststudio-lite-setup`
 
 #### Running
 Every startup command can be used in detached mode, which will free up the console or in blocking mode which uses the current console window
@@ -60,7 +60,7 @@ make run
 
 ### Application access
 
-Open http://localhost in your browser. You see now the testcenter application with testdata.
+Open http://localhost in your browser. You see now the teststudio application with testdata.
 
 You can log in with: `super` and password `user123`\
 You can reach the backend with `api` path suffix.
