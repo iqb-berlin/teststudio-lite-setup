@@ -91,7 +91,7 @@ def git_tag_commit_and_push(backend_version, frontend_version):
     subprocess.run("git add teststudio-lite-frontend", shell=True, check=True)
     for compose_file in COMPOSE_FILE_PATHS:
         subprocess.run(f"git add {compose_file}", shell=True, check=True)
-    subprocess.run("git add dist/*", shell=True, check=True)
+    subprocess.run("git add ./dist/", shell=True, check=True)
 
     subprocess.run(f"git commit -m \"Update version to {new_version_string}\"", shell=True, check=True)
     subprocess.run("git push origin master", shell=True, check=True)
