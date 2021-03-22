@@ -57,7 +57,7 @@ fi
 
 if [[ $DOWNLOAD != "n" ]]
   then
-    echo 'downloading latest'
+    echo 'Downloading latest package...'
     rm -f teststudio-lite-*.tar;
     curl -s https://api.github.com/repos/iqb-berlin/teststudio-lite-setup/releases/latest \
     | grep "browser_download_url.*tar" \
