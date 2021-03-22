@@ -85,7 +85,7 @@ POSTGRES_DB=teststudio_lite_db
 POSTGRES_USER=teststudio_lite_db_user
 POSTGRES_PASSWORD=iqb_tba_db_password_1
 read  -p 'Database name: ' -e -i $POSTGRES_DB POSTGRES_DB
-sed -i "s/teststudio_lite_db/$MYSQL_DATABASE/" .env
+sed -i "s/teststudio_lite_db/$POSTGRES_DB/" .env
 read  -p 'Database user: ' -e -i $POSTGRES_USER POSTGRES_USER
 sed -i "s/teststudio_lite_db_user/$POSTGRES_USER/" .env
 read  -p 'Database user password: ' -e -i $POSTGRES_PASSWORD POSTGRES_PASSWORD
