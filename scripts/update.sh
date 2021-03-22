@@ -45,7 +45,7 @@ if [ $NEWER_VERSION = 'true' ]
 $OLD_BACKEND_VERSION -> $NEW_BACKEND_VERSION
 $OLD_FRONTEND_VERSION -> $NEW_FRONTEND_VERSION"
   else
-    echo 'Up to date'
+    echo 'You are up to date'
     exit 0
 fi
 
