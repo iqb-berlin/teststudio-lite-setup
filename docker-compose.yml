@@ -33,7 +33,7 @@ services:
       <<: *env-postgres
     volumes:
       - dbdata:/var/lib/postgresql/data
-      - ./teststudio-lite-backend/docker/config/sql/:/docker-entrypoint-initdb.d/
+      - ./config/sql/:/docker-entrypoint-initdb.d/
 
   teststudio-lite-backend:
     container_name: teststudio-lite-backend
