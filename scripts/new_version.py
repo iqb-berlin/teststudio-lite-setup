@@ -30,7 +30,7 @@ DIST_PACKAGE_NAME = 'teststudio-lite'
 BACKEND_VERSION_FILE_PATH = 'teststudio-lite-backend/VERSION'
 BACKEND_VERSION_REGEX = '[^\n\r].*'
 FRONTEND_VERSION_FILE_PATH = 'teststudio-lite-frontend/package.json'
-FRONTEND_VERSION_REGEX = BACKEND_VERSION_REGEX
+FRONTEND_VERSION_REGEX = '(?<=version": ")(.*)(?=")'
 
 COMPOSE_FILE_PATHS = ['docker-compose.prod.yml']
 
