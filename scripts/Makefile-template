@@ -1,13 +1,13 @@
 run:
-	<run-command>
+  <run-command>
 run-detached:
-	<run-detached-command>
+  <run-detached-command>
 
 stop:
-	<stop-command>
+  <stop-command>
 
 down:
-	<down-command>
+  <down-command>
 
 pull:
   <pull-command>
