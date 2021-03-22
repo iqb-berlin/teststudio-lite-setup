@@ -122,6 +122,7 @@ def create_release_package(backend_version, frontend_version):
     subprocess.run('rm dist/Makefile-template', shell=True, check=True)
     subprocess.run('rm -rf dist/config', shell=True, check=True)
     subprocess.run('rm dist/.env', shell=True, check=True)
+    subprocess.run('rm dist/update.sh', shell=True, check=True)
 
 
 check_prerequisites()
