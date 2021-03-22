@@ -34,7 +34,7 @@ else
 fi
 
 ### Download package ###
-DOWNLOAD='y'
+DOWNLOAD='y' # TODO  probably useless?
 if ls teststudio-lite-*.tar 1> /dev/null 2>&1
   then
     PACKAGE_FOUND=true
@@ -85,14 +85,14 @@ POSTGRES_DB=teststudio_lite_db
 POSTGRES_USER=teststudio_lite_db_user
 POSTGRES_PASSWORD=iqb_tba_db_password_1
 read  -p 'Database name: ' -e -i $POSTGRES_DB POSTGRES_DB
-sed -i "s/teststudio_lite_db/$MYSQL_DATABASE/" .env
+sed -i "s/teststudio_lite_db/$POSTGRES_DB/" .env
 read  -p 'Database user: ' -e -i $POSTGRES_USER POSTGRES_USER
 sed -i "s/teststudio_lite_db_user/$POSTGRES_USER/" .env
 read  -p 'Database user password: ' -e -i $POSTGRES_PASSWORD POSTGRES_PASSWORD
 sed -i "s/iqb_tba_db_password_1/$POSTGRES_PASSWORD/" .env
 
 read  -p 'Use TLS? (y/N): ' -e TLS
-if [ $TLS = 'y' ]
+if [ $TLS != 'n' ]
 then
   echo "The certificates need to be placed in config/certs and their name configured in config/cert_config.yml."
   sed -i 's/http:/https:/' .env
@@ -100,7 +100,7 @@ then
 fi
 
 ## Populate Makefile ###
-if [ $TLS = 'y' ]
+if [ $TLS != 'n' ]
 then
   sed -i 's/<run-command>/docker-compose -f docker-compose.yml -f docker-compose.prod.yml -f docker-compose.prod.tls.yml up/' Makefile-template
   sed -i 's/<run-detached-command>/docker-compose -f docker-compose.yml -f docker-compose.prod.yml -f docker-compose.prod.tls.yml up -d/' Makefile-template
