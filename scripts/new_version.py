@@ -109,7 +109,7 @@ def create_release_package(backend_version, frontend_version):
     subprocess.run('cp docker-compose.prod.yml dist/docker-compose.prod.yml',
                    shell=True, check=True)
     subprocess.run('cp docker-compose.prod.tls.yml dist/docker-compose.prod.tls.yml', shell=True, check=True)
-    subprocess.run('cp .env-default dist/.env', shell=True, check=True)
+    subprocess.run('cp .env dist/.env', shell=True, check=True)
     subprocess.run('cp scripts/update.sh dist/update.sh', shell=True, check=True)
 
     filename = f"dist/{DIST_PACKAGE_NAME}-{frontend_version}-{backend_version}.tar"
