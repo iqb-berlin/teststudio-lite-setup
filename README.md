@@ -67,7 +67,7 @@ You can reach the backend with `api` path suffix.
 
 ### Production environment
 
-- Download the [install script](https://github.com/iqb-berlin/teststudio-lite-setup/blob/master/dist/install.sh)
+- Download the [install script](https://github.com/iqb-berlin/teststudio-lite-setup/raw/master/dist/install.sh)
 
 - Install required software (docker, docker-compose, make)
 - Run the script _install.sh_
