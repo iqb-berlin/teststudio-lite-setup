@@ -8,4 +8,4 @@ services:
     image: iqbberlin/teststudio-lite-backend:0.0.2
 
   teststudio-lite-frontend:
-    image: iqbberlin/teststudio-lite-frontend:{
+    image: iqbberlin/teststudio-lite-frontend:0.0.1
