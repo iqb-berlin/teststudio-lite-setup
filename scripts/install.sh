@@ -71,6 +71,7 @@ read  -p 'Install directory: ' -e -i "`pwd`/teststudio-lite" TARGET_DIR
 
 mkdir $TARGET_DIR
 tar -xf *.tar -C $TARGET_DIR
+cd $TARGET_DIR
 
 # ### Set up config ###
 read  -p 'Server Address (hostname or IP): ' -e -i $(hostname) HOSTNAME
