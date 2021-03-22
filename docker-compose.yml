@@ -6,6 +6,8 @@ x-env-postgres: &env-postgres
   POSTGRES_DB: ${POSTGRES_DB}
   POSTGRES_USER: ${POSTGRES_USER}
   POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+x-env-initdata: &env-initdata
   SUPERUSER_NAME: ${SUPERUSER_NAME}
   SUPERUSER_PASSWORD: ${SUPERUSER_PASSWORD}
   WORKSPACE_NAME: ${WORKSPACE_NAME}
@@ -31,6 +33,7 @@ services:
     container_name: teststudio-lite-db
     environment:
       <<: *env-postgres
+      <<: *env-initdata
     volumes:
       - dbdata:/var/lib/postgresql/data
       - ./teststudio-lite-backend/docker/config/sql/:/docker-entrypoint-initdb.d/
