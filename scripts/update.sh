@@ -42,8 +42,8 @@ compare_version_string $NEW_FRONTEND_VERSION $OLD_FRONTEND_VERSION
 if [ $NEWER_VERSION = 'true' ]
   then
     echo "Newer version found:
-$OLD_BACKEND_VERSION -> $NEW_BACKEND_VERSION
-$OLD_FRONTEND_VERSION -> $NEW_FRONTEND_VERSION"
+Backend: $OLD_BACKEND_VERSION -> $NEW_BACKEND_VERSION
+Frontend: $OLD_FRONTEND_VERSION -> $NEW_FRONTEND_VERSION"
   else
     echo 'You are up to date'
     exit 0
