@@ -61,5 +61,5 @@ if [[ $RESTART != "n" ]]
   then
     make down
     make pull
-    make run
+    make run-detached
 fi
