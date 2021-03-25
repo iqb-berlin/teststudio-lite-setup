@@ -8,6 +8,10 @@ services:
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
 
+  teststudio-lite-db:
+    ports:
+    - 54320:5432
+
   teststudio-lite-backend:
     build:
       context: ./teststudio-lite-backend
