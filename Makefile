@@ -22,6 +22,10 @@ stop-prod-tls:
 build:
 	docker-compose -f docker-compose.yml -f docker-compose.dev.yml build
 
+init-dev-config:
+	cp .env-default .env
+	cp teststudio-lite-frontend/src/environments/environment.dev.ts teststudio-lite-frontend/src/environments/environment.ts
+
 update-submodules:
 	git submodule update --remote --merge
 
