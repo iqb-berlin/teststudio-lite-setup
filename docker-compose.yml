@@ -10,6 +10,7 @@ x-env-postgres: &env-postgres
 x-env-initdata: &env-initdata
   SUPERUSER_NAME: ${SUPERUSER_NAME}
   SUPERUSER_PASSWORD: ${SUPERUSER_PASSWORD}
+  WORKSPACE_GROUP_NAME: ${WORKSPACE_GROUP_NAME}
   WORKSPACE_NAME: ${WORKSPACE_NAME}
 
 x-env-logging-conf: &env-logging-conf
@@ -51,8 +52,8 @@ services:
         <<: *env-logging-conf
     volumes:
       - vo_tmp:/var/www/html/vo_tmp
-      - itemplayers:/var/www/html/itemplayers
-      - itemauthoringtools:/var/www/html/itemauthoringtools
+      - verona-modules:/var/www/html/verona-modules
+      - config:/var/www/html/config
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.teststudio-lite-backend.rule=Host(`${HOSTNAME}`) && PathPrefix(`/api`)"
@@ -71,5 +72,5 @@ services:
 volumes:
   dbdata:
   vo_tmp:
-  itemplayers:
-  itemauthoringtools:
+  verona-modules:
+  config:
