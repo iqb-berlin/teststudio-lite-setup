@@ -5,7 +5,7 @@ version: '3.8'
 
 services:
   teststudio-lite-backend:
-    image: iqbberlin/teststudio-lite-backend:1.0.0
+    image: iqbberlin/teststudio-lite-backend:1.0.1
 
   teststudio-lite-frontend:
     image: iqbberlin/teststudio-lite-frontend:1.0.0
