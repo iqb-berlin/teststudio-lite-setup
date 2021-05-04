@@ -77,20 +77,6 @@ cd $TARGET_DIR
 read  -p 'Server Address (hostname or IP): ' -e -i $(hostname) HOSTNAME
 sed -i "s/localhost/$HOSTNAME/" .env
 
-echo '
-Database Settings'
-echo ' You can press Enter on the password prompts and default values are used.
- This strongly disadvised. Always use proper passwords!'
-POSTGRES_DB=teststudio_lite_db
-POSTGRES_USER=teststudio_lite_db_user
-POSTGRES_PASSWORD=iqb_tba_db_password_1
-read  -p 'Database name: ' -e -i $POSTGRES_DB POSTGRES_DB
-sed -i "s/teststudio_lite_db/$POSTGRES_DB/" .env
-read  -p 'Database user: ' -e -i $POSTGRES_USER POSTGRES_USER
-sed -i "s/teststudio_lite_db_user/$POSTGRES_USER/" .env
-read  -p 'Database user password: ' -e -i $POSTGRES_PASSWORD POSTGRES_PASSWORD
-sed -i "s/iqb_tba_db_password_1/$POSTGRES_PASSWORD/" .env
-
 read  -p 'Use TLS? (y/N): ' -r -n 1 -e TLS
 if [[ $TLS =~ ^[yY]$ ]]
 then
