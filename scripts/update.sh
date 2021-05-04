@@ -50,14 +50,14 @@ Frontend: $OLD_FRONTEND_VERSION -> $NEW_FRONTEND_VERSION"
 fi
 
 read -p "Do you want to update to the latest release? [Y/n]:" -e UPDATE
-if [[ $DOWNLOAD != "n" ]]
+if [[ ! $DOWNLOAD =~ ^[yY]$]]
   then
     sed -i "s/image: iqbberlin\/teststudio-lite-backend:.*/image: iqbberlin\/teststudio-lite-backend:$NEW_BACKEND_VERSION/" docker-compose.prod.yml
     sed -i "s/image: iqbberlin\/teststudio-lite-frontend:.*/image: iqbberlin\/teststudio-lite-frontend:$NEW_FRONTEND_VERSION/" docker-compose.prod.yml
 fi
 
 read -p "Update applied. Do you want to restart the server? This may take a few minutes. [Y/n]:" -e RESTART
-if [[ $RESTART != "n" ]]
+if [[ ! $RESTART =~ ^[nN]$]]
   then
     make down
     make pull

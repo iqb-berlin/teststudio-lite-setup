@@ -24,9 +24,9 @@ fi
 CHECK_INSTALLED=`make -v`;
 if [[ $CHECK_INSTALLED = "make: command not found" ]]; then
   echo "Make not found! It is recommended to control the application."
-  read  -p 'Continue anyway? (y/N): ' -e CONTINUE
+  read  -p 'Continue anyway? (y/N): ' -r -n 1 -e CONTINUE
 
-  if [[ $CONTINUE != "y" ]]; then
+  if [[ $CONTINUE =~ ^[yY]$ ]]; then
     exit 1
   fi
 else
@@ -34,7 +34,7 @@ else
 fi
 
 ### Download package ###
-DOWNLOAD='y' # TODO  probably useless?
+DOWNLOAD='y'
 if ls teststudio-lite-*.tar 1> /dev/null 2>&1
   then
     PACKAGE_FOUND=true
@@ -43,10 +43,11 @@ if ls teststudio-lite-*.tar 1> /dev/null 2>&1
         echo "Multiple packages found. Remove all but the one you want!"
         exit 1
     fi
-    read -p "Installation package found. Do you want to check for and download the latest release anyway? [Y/n]:" -e DOWNLOAD
+    DOWNLOAD='n'
+    read -p "Installation package found. Do you want to check for and download the latest release anyway? [Y/n]:" -r -n 1 -e DOWNLOAD
   else
     PACKAGE_FOUND=false
-    read -p "No installation package found. Do you want to download the latest release? [Y/n]:" -e DOWNLOAD
+    read -p "No installation package found. Do you want to download the latest release? [Y/n]:" -r -n 1 -e DOWNLOAD
 fi
 
 if [ "$PACKAGE_FOUND" = 'false' ] && [ "$DOWNLOAD" = 'n' ]
@@ -55,7 +56,7 @@ if [ "$PACKAGE_FOUND" = 'false' ] && [ "$DOWNLOAD" = 'n' ]
     exit 1
 fi
 
-if [[ $DOWNLOAD != "n" ]]
+if [[ $DOWNLOAD =~ ^[yY]$ ]]
   then
     echo 'Downloading latest package...'
     rm -f teststudio-lite-*.tar;
@@ -68,12 +69,11 @@ fi
 
 ### Unpack application ###
 read  -p 'Install directory: ' -e -i "`pwd`/teststudio-lite" TARGET_DIR
-
 mkdir -p $TARGET_DIR
 tar -xf *.tar -C $TARGET_DIR
 cd $TARGET_DIR
 
-# ### Set up config ###
+### Set up config ###
 read  -p 'Server Address (hostname or IP): ' -e -i $(hostname) HOSTNAME
 sed -i "s/localhost/$HOSTNAME/" .env
 
@@ -91,16 +91,16 @@ sed -i "s/teststudio_lite_db_user/$POSTGRES_USER/" .env
 read  -p 'Database user password: ' -e -i $POSTGRES_PASSWORD POSTGRES_PASSWORD
 sed -i "s/iqb_tba_db_password_1/$POSTGRES_PASSWORD/" .env
 
-read  -p 'Use TLS? (y/N): ' -e TLS
-if [ "$TLS" != 'n' ]
+read  -p 'Use TLS? (y/N): ' -r -n 1 -e TLS
+if [[ $TLS =~ ^[yY]$ ]]
 then
   echo "The certificates need to be placed in config/certs and their name configured in config/cert_config.yml."
   sed -i 's/http:/https:/' .env
   sed -i 's/ws:/wss:/' .env
 fi
 
-## Populate Makefile ###
-if [ "$TLS" != 'n' ]
+### Populate Makefile ###
+if [[ $TLS =~ ^[yY]$ ]]
 then
   sed -i 's/<run-command>/docker-compose -f docker-compose.yml -f docker-compose.prod.yml -f docker-compose.prod.tls.yml up/' Makefile-template
   sed -i 's/<run-detached-command>/docker-compose -f docker-compose.yml -f docker-compose.prod.yml -f docker-compose.prod.tls.yml up -d/' Makefile-template
