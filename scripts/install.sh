@@ -83,7 +83,7 @@ echo ' You can press Enter on the password prompts and default values are used.
  This strongly disadvised. Always use proper passwords!'
 POSTGRES_DB=teststudio_lite_db
 POSTGRES_USER=teststudio_lite_db_user
-POSTGRES_PASSWORD=iqb_tba_db_password_1
+POSTGRES_PASSWORD=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 16 | head -n 1)
 read  -p 'Database name: ' -e -i $POSTGRES_DB POSTGRES_DB
 sed -i "s/teststudio_lite_db/$POSTGRES_DB/" .env
 read  -p 'Database user: ' -e -i $POSTGRES_USER POSTGRES_USER
