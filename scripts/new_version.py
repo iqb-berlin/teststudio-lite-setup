@@ -78,11 +78,6 @@ def update_compose_file_versions(backend_version, frontend_version):
             f.write(new_file_content)
 
 
-def run_tests():
-    """Run end to end tests via make target."""
-    subprocess.run('make test-e2e', shell=True, check=True)
-
-
 def git_tag_commit_and_push(backend_version, frontend_version):
     """Add updated compose files and submodules hashes and commit them to repo."""
     new_version_string = f"{frontend_version}@{backend_version}"
