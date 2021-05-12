@@ -89,9 +89,12 @@ def git_tag_commit_and_push(backend_version, frontend_version):
     print(f"Creating git tag for version {new_version_string}")
     subprocess.run("git add teststudio-lite-backend", shell=True, check=True)
     subprocess.run("git add teststudio-lite-frontend", shell=True, check=True)
+    # remove old release package from git
+    subprocess.run("git ls-files --deleted | xargs git add", shell=True, check=True)
+    # Add files to commit: compose files and release package
     for compose_file in COMPOSE_FILE_PATHS:
         subprocess.run(f"git add {compose_file}", shell=True, check=True)
-    subprocess.run("git add ./dist/", shell=True, check=True)
+    subprocess.run("git add dist/*", shell=True, check=True)
 
     subprocess.run(f"git commit -m \"Update version to {new_version_string}\"", shell=True, check=True)
     subprocess.run("git push origin master", shell=True, check=True)
