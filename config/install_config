@@ -1,0 +1,10 @@
+APP_NAME='teststudio-lite'
+REPO_URL='https://api.github.com/repos/iqb-berlin/teststudio-lite-setup'
+declare -A env_vars
+env_vars[POSTGRES_DB]=teststudio_lite_db
+env_vars[POSTGRES_USER]=teststudio_lite_db_user
+env_vars[POSTGRES_PASSWORD]=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 16 | head -n 1)
+
+declare -A components
+components[iqbberlin/teststudio-lite-frontend]='.+?(?=@)'
+components[iqbberlin/teststudio-lite-backend]='(?<=@).*'

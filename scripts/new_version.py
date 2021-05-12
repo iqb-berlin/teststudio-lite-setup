@@ -106,20 +106,20 @@ def git_tag_commit_and_push(backend_version, frontend_version):
 def create_release_package(backend_version, frontend_version):
     """Create dist tar file from compose files, config and makefile template."""
     subprocess.run('rm -rf dist/*', shell=True, check=True)
-    subprocess.run('cp scripts/Makefile-template dist/Makefile-template', shell=True, check=True)
     subprocess.run('cp -r config dist/config', shell=True, check=True)
     subprocess.run('cp docker-compose.yml dist/docker-compose.yml', shell=True, check=True)
     subprocess.run('cp docker-compose.prod.yml dist/docker-compose.prod.yml',
                    shell=True, check=True)
     subprocess.run('cp docker-compose.prod.tls.yml dist/docker-compose.prod.tls.yml', shell=True, check=True)
     subprocess.run('cp .env dist/.env', shell=True, check=True)
-    subprocess.run('cp scripts/update.sh dist/update.sh', shell=True, check=True)
+    # Load update script from scripts repo
+    subprocess.run('wget -P dist https://raw.githubusercontent.com/iqb-berlin/iqb-scripts/master/update.sh',
+                   shell=True, check=True)
 
     filename = f"dist/{DIST_PACKAGE_NAME}-{frontend_version}-{backend_version}.tar"
     with tarfile.open(filename, "w") as tar:
         for file in os.listdir('dist'):
             tar.add('dist/' + file, file)
-    subprocess.run('cp scripts/install.sh dist/install.sh', shell=True, check=True)
 
     subprocess.run('rm dist/*.yml', shell=True, check=True)
     subprocess.run('rm dist/Makefile-template', shell=True, check=True)

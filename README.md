@@ -67,13 +67,17 @@ You can reach the backend with `api` path suffix.
 
 ### Production environment
 
-- Download the [install script](https://github.com/iqb-berlin/teststudio-lite-setup/raw/master/dist/install.sh)
-
 - Install required software (docker, docker-compose, make)
-- Run the script _install.sh_
+
+The installation script requires bash to run. Go to a directory of your choice and get it:
 ```
-./install.sh
+ wget https://raw.githubusercontent.com/iqb-berlin/iqb-scripts/master/install.sh
 ```
+Also download the project specific configuration for the install script:
+```
+ wget https://raw.githubusercontent.com/iqb-berlin/testcenter-setup/master/config/install_config
+```
+
 The script will check required software packages, download and unpack the latest release and set up your configuration file.
 - After the script has run, you may edit the file _.env_ in the target directory and change any password or other settings.
 
