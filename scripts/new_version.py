@@ -92,9 +92,9 @@ def git_tag_commit_and_push(backend_version, frontend_version):
     subprocess.run("git add dist/*", shell=True, check=True)
 
     subprocess.run(f"git commit -m \"Update version to {new_version_string}\"", shell=True, check=True)
-    subprocess.run("git push origin master", shell=True, check=True)
-
     subprocess.run(f"git tag {new_version_string}", shell=True, check=True)
+
+    subprocess.run("git push origin master", shell=True, check=True)
     subprocess.run(f"git push origin {new_version_string}", shell=True, check=True)
 
 
@@ -127,5 +127,8 @@ update_submodules()
 backend_version = get_version_from_file(BACKEND_VERSION_FILE_PATH, BACKEND_VERSION_REGEX)
 frontend_version = get_version_from_file(FRONTEND_VERSION_FILE_PATH, FRONTEND_VERSION_REGEX)
 update_compose_file_versions(backend_version, frontend_version)
-create_release_package(backend_version, frontend_version)
-git_tag_commit_and_push(backend_version, frontend_version)
+try:
+    create_release_package(backend_version, frontend_version)
+    git_tag_commit_and_push(backend_version, frontend_version)
+except subprocess.SubprocessError:
+    subprocess.run("git submodule update --init", shell=True, check=True)
