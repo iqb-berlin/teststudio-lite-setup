@@ -75,7 +75,7 @@ The installation script requires bash to run. Go to a directory of your choice a
 ```
 Also download the project specific configuration for the install script:
 ```
- wget https://raw.githubusercontent.com/iqb-berlin/testcenter-setup/master/config/install_config
+ wget https://raw.githubusercontent.com/iqb-berlin/teststudio-lite-setup/master/config/install_config
 ```
 
 The script will check required software packages, download and unpack the latest release and set up your configuration file.
