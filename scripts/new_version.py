@@ -106,7 +106,7 @@ def create_release_package(backend_version, frontend_version):
     subprocess.run('cp docker-compose.prod.yml dist/docker-compose.prod.yml',
                    shell=True, check=True)
     subprocess.run('cp docker-compose.prod.tls.yml dist/docker-compose.prod.tls.yml', shell=True, check=True)
-    subprocess.run('cp .env dist/.env', shell=True, check=True)
+    subprocess.run('cp .env-default dist/.env', shell=True, check=True)
     # Load update script from scripts repo
     subprocess.run('wget -P dist https://raw.githubusercontent.com/iqb-berlin/iqb-scripts/master/update.sh',
                    shell=True, check=True)
