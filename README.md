@@ -44,6 +44,7 @@ Now, your system will get checked to ensure that you have `docker`, `docker-comp
 * target directory
 * host name (can be changed later)
 * database connection parameters (database name, root password etc.)
+* tls or not - can be changed later, but not that easily
 
 The script will download and unpack the latest release and set up your configuration file. 
 
@@ -65,7 +66,7 @@ Right after installation, please log in! At start, you have one user prepared: `
 In the admin section of the application (gear wheel icon), you find 'Editoren/Player' to upload code for editors and players. These modules enable editing and preview of pages/tasks.
 
 ## SSL
-For a setup using SSL certificates (HTTPS connection), the certificates need to be placed under _config/certs_, and their name to be put in _config/cert_config.yml_.
+All communication to your server should be SSL/TLS based - most browsers will deny or at least hinder unit download. For a setup using SSL certificates (HTTPS connection), the certificates need to be placed under _config/certs_, and their name to be put in _config/cert_config.yml_. Please decide early upon ssl or not, because the installation process varies.
 
 ## Updating
 Run the script _update.sh_ in the root directory. This will compare your local component versions with the latest release and can update and restart the software stack.
